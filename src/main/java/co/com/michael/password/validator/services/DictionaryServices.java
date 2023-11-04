@@ -1,8 +1,8 @@
 package co.com.michael.password.validator.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
@@ -14,13 +14,20 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class DictionaryServices {
 
-	@Autowired
 	private IDictionaryRepository repository;
-
-	@Autowired
 	private PasswordValidator passwordValidator;
 
 	private List<Dictionary> passwords;
+
+	public DictionaryServices() {
+		this.passwords = new ArrayList<>();
+	}
+
+	public DictionaryServices(IDictionaryRepository repository, PasswordValidator passwordValidator) {
+		this.repository = repository;
+		this.passwords = new ArrayList<>();
+		this.passwordValidator = passwordValidator;
+	}
 
 	/**
 	 * Carga las contraseñas desde el repositorio al iniciar el servicio.
