@@ -10,6 +10,16 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class PasswordValidator {
 
+	private LevenshteinDistance levenshteinDistance;
+
+	public PasswordValidator() {
+		this.levenshteinDistance = new LevenshteinDistance();
+	}
+
+	public PasswordValidator(LevenshteinDistance levenshteinDistance) {
+		this.levenshteinDistance = levenshteinDistance;
+	}
+
 	/**
 	 * Valida una nueva contraseña comparándola con una clave específica, evitando
 	 * similitudes y palabras prohibidas.
@@ -43,7 +53,6 @@ public class PasswordValidator {
 
 			// Calcula la distancia de edición entre las cadenas usando el algoritmo de
 			// Levenshtein
-			LevenshteinDistance levenshteinDistance = new LevenshteinDistance();
 			int editDistance = levenshteinDistance.apply(newpass.toLowerCase(), key.toLowerCase());
 
 			// Comprueba si la distancia de edición es menor que la distancia permitida
